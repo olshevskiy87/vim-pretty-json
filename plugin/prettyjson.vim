@@ -11,7 +11,6 @@ function! s:pretty_visual()
         echom 'error: could not find jq'
         return 1
     endif
-    silent! s/\v\\u(\x{4})/\=nr2char('0x'.submatch(1), 1)/g
     let redir_buf = ''
     redir => redir_buf
     silent execute "'<,'>w ! ".jq_bin
@@ -29,7 +28,6 @@ function! s:pretty()
         echom 'error: could not find jq'
         return 1
     endif
-    silent! %s/\v\\u(\x{4})/\=nr2char('0x'.submatch(1), 1)/g
     let redir_buf = ''
     redir => redir_buf
     silent execute 'w ! '.jq_bin
