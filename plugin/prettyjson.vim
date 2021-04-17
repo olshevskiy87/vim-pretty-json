@@ -50,6 +50,7 @@ function! s:prepare_jq_command()
     if !empty(g:prettyjson_jq_options)
         let cmd .= ' '.g:prettyjson_jq_options
     endif
+    let cmd .= ' .'
     return cmd
 endfu
 
