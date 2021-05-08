@@ -21,6 +21,9 @@ function! s:pretty_visual()
         return 1
     endif
     silent execute "'<,'>! ".cmd
+    if v:shell_error == '0'
+        set syntax=json
+    endif
 endfu
 
 function! s:pretty()
@@ -39,6 +42,9 @@ function! s:pretty()
         return 1
     endif
     silent execute '%! '.cmd
+    if v:shell_error == '0'
+        set syntax=json
+    endif
 endfu
 
 function! s:prepare_jq_command()
