@@ -8,7 +8,7 @@ let g:prettyjson_jq_options = trim(get(g:, 'prettyjson_jq_options', ''))
 function! s:pretty_visual()
     let cmd = s:prepare_jq_command()
     if empty(cmd)
-        echom 'error: could not prepare jq command'
+        echoerr 'error: could not prepare jq command'
         return 1
     endif
 
@@ -17,7 +17,7 @@ function! s:pretty_visual()
     silent execute "'<,'>w ! ".cmd
     redir END
     if redir_buf =~ 'shell returned'
-        echom 'error: could not parse json'
+        echoerr 'error: could not parse json'
         return 1
     endif
     silent execute "'<,'>! ".cmd
@@ -29,7 +29,7 @@ endfu
 function! s:pretty()
     let cmd = s:prepare_jq_command()
     if empty(cmd)
-        echom 'error: could not prepare jq command'
+        echoerr 'error: could not prepare jq command'
         return 1
     endif
 
@@ -38,7 +38,7 @@ function! s:pretty()
     silent execute 'w ! '.cmd
     redir END
     if redir_buf =~ 'shell returned'
-        echom 'error: could not parse json'
+        echoerr 'error: could not parse json'
         return 1
     endif
     silent execute '%! '.cmd
@@ -50,7 +50,7 @@ endfu
 function! s:prepare_jq_command()
     let cmd = trim(system('which jq'))
     if empty(cmd)
-        echom 'error: could not find jq binary'
+        echoerr 'error: could not find jq binary'
         return ''
     endif
     if !empty(g:prettyjson_jq_options)
